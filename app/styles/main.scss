@@ -1,0 +1,9 @@
+@import "bourbon/bourbon";
+@import "grid-settings";
+@import "neat/neat";
+
+$pageWidth: 950px;
+$pageWidthTablet: 750px;
+$pageWidthMobile: 300px;
+
+.nav, .pagination, .carousel a { cursor: pointer; }

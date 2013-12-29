@@ -1,0 +1,4 @@
+@import "neat/neat-helpers";
+
+$mobile: new-breakpoint(max-width 480px 4);
+$tablet: new-breakpoint(max-width 960px 8);
