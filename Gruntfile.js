@@ -18,6 +18,8 @@ module.exports = function (grunt) {
   // Define the configuration for all the tasks
   grunt.initConfig({
 
+    pkg: grunt.file.readJSON('package.json'),
+
     // Project settings
     yeoman: {
       // configurable paths
@@ -127,7 +129,7 @@ module.exports = function (grunt) {
         files: [{
           expand: true,
           cwd: '<%= yeoman.app %>',
-          src: ['*.html', 'views/*.html'],
+          src: ['*.html', 'views/**/*.html'],
           dest: '<%= yeoman.dist %>'
         }]
       }
@@ -276,6 +278,7 @@ module.exports = function (grunt) {
   grunt.registerTask('build', [
     'clean:dist', // Clears out your .tmp/ and dist/ folders
     'useminPrepare', // Looks for those <!-- special blocks --> in your HTML
+    'concurrent:dist',
     'concat', // Task used to concatenate your JS and CSS
     'ngmin',
     'copy:dist', // Copies files from .tmp/ and app/ into dist/
