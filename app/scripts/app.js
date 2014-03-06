@@ -12,7 +12,7 @@ angular.module('generatorApp', ['ui.router', 'ui.bootstrap']).
                 url: '/',
                 abstract: true,
                 views: {
-                    'container': {
+                    'main': {
                         templateUrl: 'views/index.html'
                     }
                 }
