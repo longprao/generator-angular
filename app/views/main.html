@@ -29,6 +29,24 @@
 
   <h4>Karma</h4>
   <p>Spectacular Test Runner for JavaScript.</p>
+
+  <div loading-container="tableParams.settings().$loading" class="table-responsive">
+      <table ng-table="tableParams" show-filter="true" class="table table-striped table-hover table-bordered">
+          <tbody>
+              <tr ng-repeat="model in $data">
+                  <td data-title="'ID'" filter="{ 'id': 'text' }" sortable="'id'" class="id">
+                      {{ model.id }}
+                  </td>
+                  <td data-title="'Name'" filter="{ 'wine_name': 'text' }" sortable="'name'">
+                      {{ model.name }}
+                  </td>
+                  <td>
+                      <a ui-sref="base.wine.edit({id: bottle.bottle_id})" class="btn btn-primary btn-xs">{{ 'Edit' }}</a> 
+                  </td>
+              </tr>
+          </tbody>
+      </table>
+  </div>
 </div>
 
 <div class="footer">

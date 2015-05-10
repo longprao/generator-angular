@@ -19,8 +19,8 @@
  * Then the script will look for the element specified in the LoadingIndicatorHandler object
  * and show/hide it.
  */
-angular.module('LoadingIndicator', []).
-    config(['$httpProvider', function($httpProvider) {
+angular.module('LoadingIndicator', [])
+    .config(['$httpProvider', function($httpProvider) {
         $httpProvider.interceptors.push(['$q', 'LoadingIndicatorHandler', function($q, LoadingIndicatorHandler) {
             return {
                 request: function(config) {
@@ -40,12 +40,12 @@ angular.module('LoadingIndicator', []).
                 }
             };
         }]);
-    }]).
+    }])
     /**
      * LoadingIndicatorHandler object to show a loading animation while we load the next page or wait
      * for a request to finish.
      */
-    factory('LoadingIndicatorHandler', function() {
+    .factory('LoadingIndicatorHandler', function() {
         // The element we want to show/hide.
         var $element = angular.element(document.getElementById('loading-indicator'));
 

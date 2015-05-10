@@ -1,22 +1,38 @@
 'use strict';
 
-angular.module('generatorApp', ['ui.router', 'ui.bootstrap']).
-    config(function ($locationProvider, $stateProvider, $urlRouterProvider) {
+angular.module('app.controllers', ['ngMessages', 'ui.router', 'ngTable', 'app.services']);
+angular.module('app.services', ['ngResource', 'app.configs']);
+angular.module('app.directives', []);
+
+angular.module('app', ['ui.router', 'ui.bootstra', 'app.configs', 'app.directives', 'app.controllers'])
+    .config(function ($locationProvider, $stateProvider, $urlRouterProvider, $resourceProvider, GlobalConfig) {
+
+        $resourceProvider.defaults.stripTrailingSlashes = false;
 
         $locationProvider.html5Mode(true).hashPrefix('!');
 
         $urlRouterProvider.otherwise('/');
 
-        $stateProvider.
-            state('base', {
-                url: '/',
+        $stateProvider
+            .state('base', {
+                url: GlobalConfig.base,
                 abstract: true,
                 views: {
-                    'main': {
-                        templateUrl: 'views/index.html'
+                    'header': {
+                        templateUrl: 'views/header.html',
+                        controller: 'HeaderCtrl'
                     }
                 }
             })
+            .state('base.index', {
+                url: '',
+                views: {
+                    'main@': {
+                        templateUrl: 'views/main.html',
+                        controller: 'MainCtrl'
+                    }
+                }
+            });
 
         //Add trailing slash
         $urlRouterProvider.rule(function($injector, $location) {
@@ -42,18 +58,22 @@ angular.module('generatorApp', ['ui.router', 'ui.bootstrap']).
             });
             return path + '/?' + params.join('&');
         });
-    }).
-    directive('loadingContainer', function () {
+    })
+    /**
+     * Set head title
+     */
+    .factory('PageTitle', function ($rootScope, $window) {
+        $rootScope.pageTitle = '';
+
         return {
-            restrict: 'A',
-            scope: false,
-            link: function(scope, element, attrs) {
-                var loadingLayer = angular.element('<div class="loading"></div>');
-                element.append(loadingLayer);
-                element.addClass('loading-container');
-                scope.$watch(attrs.loadingContainer, function(value) {
-                    loadingLayer.toggleClass('ng-hide', !value);
-                });
+            set: function (title) {
+                $window.document.title = title + ' | Quickstart';
+                $rootScope.pageTitle = title;
+            },
+
+            reset: function () {
+                $window.document.title = 'Quickstart';
+                $rootScope.pageTitle = '';
             }
-        };
+        }
     });
